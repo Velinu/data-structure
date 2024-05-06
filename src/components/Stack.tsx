@@ -32,13 +32,13 @@ function Stack() {
     setNewNode("");
   }
 
-  function handleStackRemove(e: any) {
+  function handleStackRemove() {
     const arr = [...stackNodes];
     arr.shift();
     setStackNodes(arr);
   }
 
-  function handleQeueRemove(e: any) {
+  function handleQeueRemove() {
     const arr = [...queueNodes];
     arr.pop();
     setQueueNodes(arr);
