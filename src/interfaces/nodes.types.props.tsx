@@ -1,4 +1,6 @@
-export interface NodeProps {
-  id?: number;
-  value: string;
+export interface NodeElement {
+  node: {
+    id: number;
+    value: string;
+  };
 }

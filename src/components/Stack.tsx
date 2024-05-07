@@ -1,35 +1,39 @@
 import { FormEvent, useState } from "react";
-import { StackNode } from "./Nodes";
-import { NodeProps } from "../interfaces/nodes.types.props";
+import { NodeElement } from "../interfaces/nodes.types.props";
+import { NodeColumn } from "./NodeColumn";
 
 function Stack() {
   const [newNode, setNewNode] = useState<string>("");
-  const [auxNodes, setAuxNodes] = useState<Array<NodeProps>>([]);
-  const [stackNodes, setStackNodes] = useState<Array<NodeProps>>([
-    { id: 0, value: "s" },
-    { id: 1, value: "s2" },
-    { id: 2, value: "s3" },
-    { id: 3, value: "s4" },
-    { id: 4, value: "s5" },
+  const [auxNodes, setAuxNodes] = useState<Array<NodeElement>>([
+    { node: { id: 1, value: "valor" } },
   ]);
-  const [queueNodes, setQueueNodes] = useState<Array<NodeProps>>([
-    { id: 0, value: "s" },
-    { id: 1, value: "s1" },
-    { id: 2, value: "s2" },
-    { id: 3, value: "s3" },
+  const [stackNodes, setStackNodes] = useState<Array<NodeElement>>([
+    { node: { id: 1, value: "valor" } },
   ]);
-
+  const [queueNodes, setQueueNodes] = useState<Array<NodeElement>>([
+    { node: { id: 1, value: "valor" } },
+  ]);
   function handleAddNode(event: FormEvent) {
     event.preventDefault();
     if (newNode === "") return;
 
     let newItem = {
-      id: auxNodes.length + 1,
-      value: newNode,
-      top: true,
+      node: {
+        id: auxNodes.length + 1,
+        value: newNode,
+      },
     };
     setAuxNodes((prevNodes) => [newItem, ...prevNodes]);
     setNewNode("");
+  }
+
+  function handleSendToQeue() {
+    const el = queueNodes[queueNodes.length - 1];
+    const arr = [...auxNodes];
+    arr.shift();
+    console.log(arr);
+    setAuxNodes(arr);
+    setQueueNodes((prev) => [...prev, el]);
   }
 
   function handleStackRemove() {
@@ -38,16 +42,17 @@ function Stack() {
     setStackNodes(arr);
   }
 
-  function handleQeueRemove() {
+  function handleSendToStack() {
     const arr = [...queueNodes];
+    const nodeToStack = arr[arr.length - 1];
     arr.pop();
     setQueueNodes(arr);
+    setStackNodes((prev) => [nodeToStack, ...prev]);
   }
 
   return (
     <div className="w-full h-screen flex flex-col items-center px-4 pt-52">
       <h1 className="font-bold text-4xl text-white mb-4">Tarefas</h1>
-
       <form className="w-full max-w-2xl mb-4 flex" onSubmit={handleAddNode}>
         <input
           type="text"
@@ -67,30 +72,20 @@ function Stack() {
       <section className="flex w-full justify-around">
         <div>
           <h2>Pedidos</h2>
-          <button onClick={handleQeueRemove}>Entregar pedido </button>
-          <ul>
-            {queueNodes.map((node: any) => (
-              <StackNode key={node.id} value={node.value} />
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <ul>
-            {auxNodes.map((node: any) => (
-              <StackNode key={node.id} value={node.value} />
-            ))}
-          </ul>
+          <NodeColumn items={stackNodes}></NodeColumn>
+          <button onClick={handleStackRemove}>Lavar louça</button>
         </div>
 
         <div>
           <h2>Pedidos</h2>
-          <button onClick={handleStackRemove}>Lavar louça</button>
-          <ul>
-            {stackNodes.map((node: any) => (
-              <StackNode key={node.id} value={node.value} />
-            ))}
-          </ul>
+          <NodeColumn items={queueNodes}></NodeColumn>
+          <button onClick={handleSendToStack}>Entregar pedido </button>
+        </div>
+
+        <div>
+          <h2>Garçom</h2>
+          <NodeColumn items={auxNodes}></NodeColumn>
+          <button onClick={handleSendToQeue}>Enviar pedido à cozinha</button>
         </div>
       </section>
     </div>
