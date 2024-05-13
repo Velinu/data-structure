@@ -1,9 +1,11 @@
 function TimeLine() {
   return (
     <>
-      <div className="h-[70vh] bg-red-700">
-        <h1>Time Line placeholder</h1>
-      </div>
+      <section className="h-[70vh] bg-red-700 scroll-smooth">
+        <div>
+          <h1 id="time-line">Time Line placeholder</h1>
+        </div>
+      </section>
     </>
   );
 }

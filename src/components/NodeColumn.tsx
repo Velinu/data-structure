@@ -4,7 +4,7 @@ import { NodeElement } from "../interfaces/nodes.types.props";
 
 export const NodeColumn = (column: NodeColumnProps) => {
   return (
-    <ul>
+    <ul className="">
       {column.items.map((nodeElement: NodeElement, index: number) => (
         <Node key={index} node={nodeElement.node} />
       ))}

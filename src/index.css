@@ -1,5 +1,17 @@
-@import url(https://fonts.googleapis.com/css?family=Anonymous+Pro);
-
+@import url('https://fonts.googleapis.com/css2?family=Anonymous+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.bt-clip-path{
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+} 
+
+.bt-clip-img {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 400px), calc(100% - 950px) 100%, 0 100%);
+}
+
+.banner-bg {
+    background-image: '/banner-bg.jpg';
+}
+
