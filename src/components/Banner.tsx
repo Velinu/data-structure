@@ -1,9 +1,11 @@
 import { TypeAnimation } from "react-type-animation";
+import { Navigaton } from "./NavigationList";
+import { label } from "three/examples/jsm/nodes/Nodes.js";
 
 function Banner() {
   return (
     <>
-      <section className="h-[90vh] w-full flex bg-banner bg-no-repeat bg-cover">
+      <section className="h-[90vh] w-full flex ">
         <div className="w-1/2 h-full flex flex-col justify-center items-end">
           <div>
             <TypeAnimation
@@ -13,14 +15,20 @@ function Banner() {
               className="text-4xl text-primary font-bold italic tracking-wider my-5"
               repeat={Infinity}
             />
-            <p className="text-2xl text-white my-5 max-w-[55%] text-justify leading-9">
+            <p className="text-2xl text-black my-5 max-w-[55%] text-justify leading-9">
               Uma maneira simples e interativa de aprender estrutura de dados
             </p>
             <a href="#time-line">
-              <button className=" w-[35%] h-[30%] bg-secondary text-2xl bt-clip-path">
+              <button className=" w-[35%] h-[20%] bg-primary text-2xl bt-clip-path">
                 Começar jornada
               </button>
             </a>
+            <Navigaton
+              elements={[
+                { label: "Ponteiros", href: "as" },
+                { label: "Listas", href: "as" },
+              ]}
+            />
           </div>
         </div>
       </section>
